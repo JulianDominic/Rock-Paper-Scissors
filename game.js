@@ -6,13 +6,13 @@ function getComputerChoice() {
 }
 
 function capitalise(string) {
-    return string[0].toUpperCase() + string.slice(1)
+    return string[0].toUpperCase() + string.slice(1);
 }
 
 function playRound(playerSelection, computerSelection) {
     // Function returns the victory string, player score, and computer score
-    playerSelection = playerSelection.toLowerCase()
-    computerSelection = computerSelection.toLowerCase()
+    playerSelection = playerSelection.toLowerCase();
+    computerSelection = computerSelection.toLowerCase();
 
     let gameResult;
 
@@ -54,17 +54,17 @@ function playRound(playerSelection, computerSelection) {
     // Compute/Form the return results
     let victoryString, playerScore, computerScore;
     if (gameResult === "win") {
-        victoryString = "You win! " + capitalise(playerSelection) + " beats " + capitalise(computerSelection)
+        victoryString = "You win! " + capitalise(playerSelection) + " beats " + capitalise(computerSelection);
         playerScore = 1;
         computerScore = 0;
     }
     else if (gameResult === "loss") {
-        victoryString = "You lose! " + capitalise(computerSelection) + " beats " + capitalise(playerSelection)
+        victoryString = "You lose! " + capitalise(computerSelection) + " beats " + capitalise(playerSelection);
         playerScore = 0;
         computerScore = 1;
     }
     else if (gameResult === "tie") {
-        victoryString = "It's a tie! " + capitalise(playerSelection) + " and " + capitalise(computerSelection)
+        victoryString = "It's a tie! " + capitalise(playerSelection) + " and " + capitalise(computerSelection);
         playerScore = 0;
         computerScore = 0;
     }
@@ -87,13 +87,13 @@ function playGame() {
     }
 
     if (playerScore > computerScore) {
-        return "Winnner! You won the most games"
+        return "Winnner! You won the most games";
     }
     else if (playerScore < computerScore) {
-        return "Loser! The computer won the most games"
+        return "Loser! The computer won the most games";
     }
     else {
-        return "It's a tie!"
+        return "It's a tie!";
     }
 }
 
