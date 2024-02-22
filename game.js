@@ -5,43 +5,71 @@ function getComputerChoice() {
     return choices[randomIndex];
 }
 
+function capitalise(string) {
+    return string[0].toUpperCase() + string.slice(1)
+}
+
 function playRound(playerSelection, computerSelection) {
     // Function returns the victory string, player score, and computer score
     playerSelection = playerSelection.toLowerCase()
     computerSelection = computerSelection.toLowerCase()
 
+    let gameResult;
+
+    // Player ties with computer
+    if (playerSelection === computerSelection) {
+        gameResult = "tie";
+    }
+
     // Player chooses rock
-    if (playerSelection == "rock" && computerSelection == "rock") {
-        return ["It's a tie! Rock and Rock", 0, 0];
-    }
-    else if (playerSelection == "rock" && computerSelection == "paper") {
-        return ["You lose! Paper beats Rock", 0, 1];
-    }
-    else if (playerSelection == "rock" && computerSelection == "scissors") {
-        return ["You win! Rock beats Scissors", 1, 0];
+    else if (playerSelection === "rock") {
+        if (computerSelection === "scissors") {
+            gameResult = "win";
+        }
+        else {
+            gameResult = "loss";
+        }
     }
 
     // Player chooses paper
-    else if (playerSelection == "paper" && computerSelection == "rock") {
-        return ["You win! Paper beats Rock", 1, 0];
-    }
-    else if (playerSelection == "paper" && computerSelection == "paper") {
-        return ["It's a tie! Paper and Paper", 0, 0];
-    }
-    else if (playerSelection == "paper" && computerSelection == "scissors") {
-        return ["You lose! Scissors beats Paper", 0, 1];
+    else if (playerSelection === "paper") {
+        if (computerSelection === "rock") {
+            gameResult = "win";
+        }
+        else {
+            gameResult = "loss";
+        }
     }
 
     // Player chooses scissors
-    else if (playerSelection == "scissors" && computerSelection == "rock") {
-        return ["You lose! Rock beats Scissors", 0, 1];
+    else if (playerSelection == "scissors") {
+        if (computerSelection == "paper") {
+            gameResult = "win";
+        }
+        else {
+            gameResult = "loss";
+        }
     }
-    else if (playerSelection == "scissors" && computerSelection == "paper") {
-        return ["You win! Scissors beats Paper", 1, 0];
+
+    // Compute/Form the return results
+    let victoryString, playerScore, computerScore;
+    if (gameResult === "win") {
+        victoryString = "You win! " + capitalise(playerSelection) + " beats " + capitalise(computerSelection)
+        playerScore = 1;
+        computerScore = 0;
     }
-    else if (playerSelection == "scissors" && computerSelection == "scissors") {
-        return ["It's a tie! Scissors and Scissors", 0, 0];
+    else if (gameResult === "loss") {
+        victoryString = "You lose! " + capitalise(computerSelection) + " beats " + capitalise(playerSelection)
+        playerScore = 0;
+        computerScore = 1;
     }
+    else if (gameResult === "tie") {
+        victoryString = "It's a tie! " + capitalise(playerSelection) + " and " + capitalise(computerSelection)
+        playerScore = 0;
+        computerScore = 0;
+    }
+
+    return [victoryString, playerScore, computerScore]
 }
 
 // Loop method
@@ -53,6 +81,7 @@ function playGame() {
         const playerSelection = prompt("Choose 'Rock', 'Paper' or 'Scissors'");
         const computerSelection = getComputerChoice();
         let results = playRound(playerSelection, computerSelection);
+        console.log(results[0])
         playerScore += results[1];
         computerScore += results[2];
     }
@@ -60,8 +89,11 @@ function playGame() {
     if (playerScore > computerScore) {
         return "Winnner! You won the most games"
     }
-    else {
+    else if (playerScore < computerScore) {
         return "Loser! The computer won the most games"
+    }
+    else {
+        return "It's a tie!"
     }
 }
 
